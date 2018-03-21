@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import './App.css';
+import fetch from 'isomorphic-fetch';
+import PropTypes from 'prop-types'
 
 const DEFAULT_QUERY = 'redux';
 const DEFAULT_HPP = '100';
@@ -211,9 +213,12 @@ class App extends Component {
 // }
 
 // Search 컴포넌트 클래스를 '비 상태 함수형 컴포넌트'로 리팩터링
-const Search = (
-    {value, onChange, onSubmit, children}
-) => {
+const Search = ({
+    value,
+    onChange,
+    onSubmit,
+    children
+}) => {
     return (
         <form onSubmit={onSubmit}>
             <input
@@ -227,6 +232,13 @@ const Search = (
         </form>
     )
 }
+
+Search.propTypes = {
+    value: PropTypes.string,
+    onChange: PropTypes.func,
+    onSubmit: PropTypes.func,
+    children: PropTypes.node.isRequired
+};
 
 // class Table extends Component {
 //     render() {
@@ -280,6 +292,19 @@ const Table = ({list, onDismiss}) => {
     )
 }
 
+Table.propTypes = {
+    list: PropTypes.arrayOf(
+        PropTypes.shape({
+            objectID: PropTypes.string.isRequired,
+            author: PropTypes.string,
+            url: PropTypes.string,
+            num_comments: PropTypes.number,
+            points: PropTypes.number
+        })
+    ).isRequired,
+    onDismiss: PropTypes.func.isRequired
+};
+
 
 // class Button extends Component {
 //     render() {
@@ -302,16 +327,33 @@ const Table = ({list, onDismiss}) => {
 // }
 
 // Button 컴포넌트 클래스를 '비 상태 함수형 컴포넌트'로 리팩터링
-const Button = ({onClick, className, children}) => {
-    return (
-        <button
-            onClick={onClick}
-            className={className}
-            type="button"
-        >
-            {children}
-        </button>
-    )
-}
+const Button = ({
+    onClick,
+    className,
+    children
+}) =>
+    <button
+        onClick={onClick}
+        className={className}
+        type="button"
+    >
+        {children}
+    </button>
+    
+Button.propTypes = {
+    onClick: PropTypes.func.isRequired,
+    className: PropTypes.string,
+    children: PropTypes.node.isRequired
+};
 
+Button.defaultProps = {
+    className: '',
+};
+    
 export default App;
+
+export {
+    Button,
+    Search,
+    Table,
+};
