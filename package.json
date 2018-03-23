@@ -4,9 +4,11 @@
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
+    "classnames": "^2.2.5",
     "isomorphic-fetch": "^2.2.1",
     "jest": "^22.0.4",
     "jest-cli": "^23.0.0-alpha.0",
+    "lodash": "^4.17.5",
     "prop-types": "^15.6.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
